@@ -20,6 +20,20 @@ public class Contact {
     private String phone_number;
     private String email;
 
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     // Creating getter and setter method
     public String getFirst_name() {
         return first_name;

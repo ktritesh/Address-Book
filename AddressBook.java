@@ -5,54 +5,40 @@
  * @author: Ritesh KT
  * @since: 18/06/2021
  */
-
 package com.bridgelabz.addressbook;
 
-//Creating a class for Address Book
+import java.util.HashMap;
+import java.util.Scanner;
+
 public class AddressBook {
 
-    //Instance variable
-    String first_name;
-    String last_name;
-    String address;
-    String city;
-    String state;
-    int zip;
-    String phone_number;
-    String email;
+    static Scanner scanner = new Scanner(System.in);
+    static HashMap<String, Contact> mapOfContact = new HashMap<String, Contact>();
+    String addressBookName;
 
-    //Creating a parametrized constructor to initialize instance variable
-    public AddressBook(String first_name, String last_name, String address, String city, String state, int zip, String phone_number, String email) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phone_number = phone_number;
-        this.email = email;
+    public AddressBook(String addressBookName) {
+        this.addressBookName = addressBookName;
     }
 
-    public void displayContactInfo(){
-        System.out.println("First Name : " +first_name);
-        System.out.println("Last Name : "+ last_name);
-        System.out.println("Address : "+ address);
-        System.out.println("City : "+ city);
-        System.out.println("State : "+ state);
-        System.out.println("Zip : "+ zip);
-        System.out.println("Phone Number : "+ phone_number);
-        System.out.println("Email : "+ email);
-    }
-
-    //main method
-    public static void main(String[] args) {
-        System.out.println("Welcome to address book problem");
-
-        //Creating object and passing the value
-        AddressBook addressBook = new AddressBook("Ritesh", "KT", "co-operative coloney", "Ara", "Bihar", 802301, "7066086690","ktritesh7@gmail.com");
-
-        //Calling displayContactInfo method
-        addressBook.displayContactInfo();
+    public void addContact(){
+        Contact contact = new Contact();
+        System.out.print("Enter your First Name : ");
+        contact.setFirst_name(scanner.nextLine());
+        System.out.print("Enter your Last Name : ");
+        contact.setLast_name(scanner.nextLine());
+        System.out.print("Enter your Address : ");
+        contact.setAddress(scanner.nextLine());
+        System.out.print("Enter your City Name : ");
+        contact.setCity(scanner.nextLine());
+        System.out.print("Enter your State : ");
+        contact.setState(scanner.nextLine());
+        System.out.print("Enter your Zip Code : ");
+        contact.setZip(scanner.nextInt());
+        System.out.print("Enter your Phone Number : ");
+        contact.setPhone_number(scanner.next());
+        System.out.print("Enter your Email Address : ");
+        contact.setEmail(scanner.next());
+        mapOfContact.put(contact.getFirst_name(), contact);
     }
 }
 
