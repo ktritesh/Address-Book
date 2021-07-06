@@ -45,7 +45,7 @@ public class AddressBook {
         contact.setEmail(email);
     }
 
-    //Method to edit contact using their first name
+    //Method to edit contact using first name
     public void editContact() {
         System.out.println("Enter the first name of person to edit contact");
         String editName = scanner.nextLine();
@@ -54,6 +54,16 @@ public class AddressBook {
         }else {
             System.out.println("Invalid Name...!!...Please enter valid First Name");
             editContact();
+        }
+    }
+
+    //Method to delete contact using first name
+    public void deleteContact() {
+        System.out.println("Enter the first name of person to delete contact");
+        String editName = scanner.nextLine();
+        if (editName.equals(contact.firstName)){
+            System.out.println("you are deleted "+ contact.firstName+" details from contacts");
+            contact=null;
         }
     }
 }
