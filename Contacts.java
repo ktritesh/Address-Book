@@ -1,6 +1,7 @@
 /*
  * Ability to add a new contact to address book
  * Using console to add person details from address book main class
+ * Ability to Edit Contact using first name.
  *
  * @author: Ritesh KT
  * @since: 18/06/2021
@@ -11,14 +12,14 @@ package com.bridgelabz.addressbook;
 public class Contacts {
 
     //Instance variable
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String city;
-    private String state;
-    private long zipCode;
-    private long phoneNumber;
-    private String email;
+    String firstName;
+    String lastName;
+    String address;
+    String city;
+    String state;
+    long zipCode;
+    long phoneNumber;
+    String email;
 
     @Override
     public String toString() {

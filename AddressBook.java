@@ -1,6 +1,6 @@
 /**
  * Ability to create Contacts in Address Book with first and last names, address, city, state, zip, phone number and email.
- *
+ * Ability to Edit Contact using first name.
  *
  * @author: Ritesh KT
  * @since: 18/06/2021
@@ -11,8 +11,9 @@ import java.util.Scanner;
 
 public class AddressBook {
     Contacts contact;
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
+    //Adding contact details of person
     public void addContacts(){
         contact = new Contacts();
 
@@ -42,9 +43,18 @@ public class AddressBook {
         System.out.println("Enter your Email ID: ");
         String email = scanner.nextLine();
         contact.setEmail(email);
+    }
 
-        System.out.println(contact);
-
+    //Method to edit contact using their first name
+    public void editContact() {
+        System.out.println("Enter the first name of person to edit contact");
+        String editName = scanner.nextLine();
+        if (editName.equalsIgnoreCase(contact.firstName)){
+            addContacts();
+        }else {
+            System.out.println("Invalid Name...!!...Please enter valid First Name");
+            editContact();
+        }
     }
 }
 
