@@ -23,12 +23,18 @@ public class AddressBook {
         contactList.add(contact);
         return true;
     }
-
     //method for search contact by name
     public List<Contacts> searchByName(String name) {//collection list of element
         //stream and lambda for find filter given name from arraylist
         return contactList.stream().filter(person -> person.getFirstName().equalsIgnoreCase(name)).collect(Collectors.toList());
     }
+    public List<Contacts> searchByCity(String city) {
+        return contactList.stream().filter(person -> person.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
+    }
+    public List<Contacts> searchByState(String state) {
+        return contactList.stream().filter(person -> person.getState().equalsIgnoreCase(state)).collect(Collectors.toList());
+    }
+
 
     //method for edit contact
     public boolean editContact(Contacts current, Contacts edit) {
@@ -38,13 +44,11 @@ public class AddressBook {
         contactList.add(edit);
         return true;
     }
-
     //method for delete contact
     public boolean deleteContact(Contacts contacts) {
         contactList.remove(contacts);
         return true;
     }
-
     //for showing output details
     @Override
     public String toString() {
@@ -56,7 +60,6 @@ public class AddressBook {
         }
         return result;
     }
-
     //method for adding details
     public static Contacts readContact() {
         Scanner sc = new Scanner(System.in);
@@ -80,7 +83,6 @@ public class AddressBook {
         String email = sc.nextLine();
         return new Contacts(firstName, lastName, address, city, state, zip, phoneNum, email);
     }
-
     //method for show option for contacts
     public static void addressBookOptions(AddressBook addressBook) {
         Scanner sc = new Scanner(System.in);
@@ -138,7 +140,7 @@ public class AddressBook {
                     }
                     break;
                 case 4:
-                    System.out.println(addressBook.toString()); //call toString method for showing details
+                    System.out.println(addressBook.toString()); //call tostring method for showing details
                     break;
                 case 5:
                     return;
@@ -146,6 +148,39 @@ public class AddressBook {
                     System.out.println("Invalid Choice!");
                     break;
             }
+        }
+    }
+
+    public void searchByOptions() {
+        AddressBook addressBook = new AddressBook();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. By name");
+        System.out.println("2. By city");
+        System.out.println("3. By state");
+        System.out.println("4. Back");
+        System.out.println("Your choice: ");
+        int choice =sc.nextInt();
+        sc.nextLine();
+        switch (choice){
+            case 1:
+                System.out.println("Enter name: ");
+                String name=sc.nextLine();
+                contactList.forEach(book -> searchByName(name).forEach(System.out::println));
+                break;
+            case 2:
+                System.out.println("Enter city: ");
+                String city=sc.nextLine();
+                contactList.forEach(book -> searchByCity(city).forEach(System.out::println));
+                break;
+            case 3:
+                System.out.println("Enter state: ");
+                String state=sc.nextLine();
+                contactList.forEach(book -> searchByState(state).forEach(System.out::println));
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println("INVALID CHOICE!");
         }
     }
 }

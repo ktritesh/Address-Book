@@ -10,6 +10,8 @@ package com.bridgelabz.addressbook;
 
 import java.util.*;
 
+import java.util.*;
+
 public class AddressBookMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -21,7 +23,8 @@ public class AddressBookMain {
             System.out.println("1. New Address Book");
             System.out.println("2. Select Address Book");
             System.out.println("3. Delete Address Book");
-            System.out.println("4. Exit");
+            System.out.println("4. Search Contact Data");
+            System.out.println("5. Exit");
             System.out.print("Enter Your choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -51,6 +54,9 @@ public class AddressBookMain {
                     addressBookMap.remove(name);//delete hashmap using remove fun
                     break;
                 case 4:
+                    System.out.println("Welcome to the search option:");
+                    addressBook.searchByOptions();
+                case 5:
                     sc.close();//for closing the programme
                     return;
                 default:
