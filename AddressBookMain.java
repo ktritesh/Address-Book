@@ -8,33 +8,28 @@
  */
 package com.bridgelabz.addressbook;
 
-
 import java.util.*;
 
 public class AddressBookMain {
-
-    //main method
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         AddressBook addressBook = new AddressBook();
-        Map<String, AddressBook> addressBookMap = new HashMap<String, AddressBook>();
+        Map<String, AddressBook> addressBookMap = new HashMap<String,AddressBook>();
 
-        while (true){
-            System.out.println("Welcome to address book problem");
+        while (true) {
+            System.out.println("\n--------------------------Welcome to Address Book System--------------------------");
             System.out.println("1. New Address Book");
             System.out.println("2. Select Address Book");
             System.out.println("3. Delete Address Book");
             System.out.println("4. Exit");
             System.out.print("Enter Your choice: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch (choice){
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
                 case 1:
                     System.out.println("Enter Name of new Address Book: ");
-                    String bookName = scanner.next();
-                    scanner.nextLine();
+                    String bookName = sc.next();
+                    sc.nextLine();
                     addressBookMap.put(bookName, new AddressBook());//adding bookname as a key and vlue is allocating memory for addressbook obj
                     addressBook.addressBookOptions(addressBookMap.get(bookName));//call addressbookoption method with passing key of hashmap
                     break;
@@ -46,17 +41,17 @@ public class AddressBookMain {
                         System.out.println(i.next());
                     }
                     System.out.println("Enter Address Book name you want to Open : ");
-                    String name = scanner.nextLine();
+                    String name = sc.nextLine();
                     System.out.println("Current Address Book is : "+name);
                     addressBook.addressBookOptions(addressBookMap.get(name));//call method with passing address book name
                     break;
                 case 3:
                     System.out.println("Enter Address Book name to be delete: ");
-                    name = scanner.nextLine();
+                    name = sc.nextLine();
                     addressBookMap.remove(name);//delete hashmap using remove fun
                     break;
                 case 4:
-                    scanner.close();//for closing the programme
+                    sc.close();//for closing the programme
                     return;
                 default:
                     System.out.println("You Entered Invalid Choice....!");

@@ -9,38 +9,39 @@
 package com.bridgelabz.addressbook;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBook {
-
     public ArrayList<Contacts> contactList = new ArrayList<>();
-    public void addContact(Contacts contact) {
+    public boolean addContact(Contacts contact) {
+        List<Contacts> checkByName = searchByName(contact.getFirstName());
+        for (Contacts equalName : checkByName)
+            if (equalName.equals(contact))
+                return false;
         contactList.add(contact);
+        return true;
     }
 
     //method for search contact by name
-    public int searchByName(String name) {
-        for (Contacts contact : contactList)
-            if (contact.getFirstName().equalsIgnoreCase(name))
-                return contactList.indexOf(contact);
-        return -1;
+    public List<Contacts> searchByName(String name) {//collection list of element
+        //stream and lambda for find filter given name from arraylist
+        return contactList.stream().filter(person -> person.getFirstName().equalsIgnoreCase(name)).collect(Collectors.toList());
     }
 
     //method for edit contact
-    public boolean editContact(String name, Contacts edit) {
-        int index = searchByName(name);
-        if (index == -1)
+    public boolean editContact(Contacts current, Contacts edit) {
+        if (!contactList.contains(current))
             return false;
-        contactList.set(index, edit);
+        contactList.remove(current);
+        contactList.add(edit);
         return true;
     }
 
     //method for delete contact
-    public boolean deleteContact(String name) {
-        int index = searchByName(name);
-        if (index == -1)
-            return false;
-        contactList.remove(index);
+    public boolean deleteContact(Contacts contacts) {
+        contactList.remove(contacts);
         return true;
     }
 
@@ -95,26 +96,49 @@ public class AddressBook {
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    addressBook.addContact(readContact());//call addcontact with passing method readcontact
+                    if (addressBook.addContact(readContact()))   //call addcontact with passing method readcontact
+                        System.out.println("Cotact Added Successfully....!");
+                    else
+                        System.out.println("Contact Already Exist....!");
                     break;
                 case 2:
                     System.out.println("Enter First name to edit contact: ");
                     String name = sc.nextLine();
-                    if (addressBook.searchByName(name) == -1) //call searchbyname method by passing first name value
+                    List<Contacts> equalName = addressBook.searchByName(name);//list of equal first name
+                    if (equalName.isEmpty())//if not match found
                         System.out.println("Data Not Found....!");
-                    else
-                        addressBook.editContact(name, readContact()); //call edit method with name and method parameter
+                    else if (equalName.size() == 1) {//if only one equal match found
+                        addressBook.editContact(equalName.get(0), readContact()); //call edit method with name and method parameter
+                        System.out.println("Contact data modified....!");
+                    }else {//if more than one firstname match found in equal name list
+                        equalName.forEach(x -> System.out.println(equalName.indexOf(x) + "  " + x.toString()));
+                        System.out.println("Enter index to edit : ");
+                        int i = sc.nextInt();
+                        sc.nextLine();
+                        addressBook.editContact(equalName.get(i), readContact());
+                        System.out.println("Contact Modified....!");
+                    }
                     break;
                 case 3:
                     System.out.println("Enter First name to delete contact: ");
                     name = sc.nextLine();
-                    if (addressBook.searchByName(name) == -1)
-                        System.out.println("Data Not Found....!");
-                    else
-                        addressBook.deleteContact(name); //call method for delete contact
+                    equalName = addressBook.searchByName(name);
+                    if (equalName.isEmpty())
+                        System.out.println("Data Not Found.....!");
+                    else if (equalName.size() == 1){
+                        addressBook.deleteContact(equalName.get(0));
+                        System.out.println("Contact data deleted....!");
+                    }else {
+                        equalName.forEach(x -> System.out.println(equalName.indexOf(x) + "  " + x.toString()));
+                        System.out.println("Enter an index to delete");
+                        int index = sc.nextInt();
+                        sc.nextLine();
+                        addressBook.deleteContact(equalName.get(index));
+                        System.out.println("Contact data deleted....!");
+                    }
                     break;
                 case 4:
-                    System.out.println(addressBook.toString()); //call tostring method for showing details
+                    System.out.println(addressBook.toString()); //call toString method for showing details
                     break;
                 case 5:
                     return;
@@ -125,4 +149,3 @@ public class AddressBook {
         }
     }
 }
-
