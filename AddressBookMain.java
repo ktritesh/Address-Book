@@ -67,7 +67,7 @@ public class AddressBookMain {
                     addressBook.viewByOption(addressBookMap);
                     break;
                 case 6:
-                    System.out.println("Welcome to the counter");
+                    System.out.println("Welcome to the couter");
                     addressBook.countByOption();
                     break;
                 case 7:
